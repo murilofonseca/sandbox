@@ -44,45 +44,9 @@ class UsersController extends Controller
 
         $contOrderbyKey = explode(".", $orderByKey);
         if (count($contOrderbyKey) > 1) {
-            $orderByKey = $contOrderbyKey[count($contOrderbyKey)-1];
-            dd($orderByKey);
-            $usuarios = DB::table('users')
-                ->select(
-                    'users.*',
-                    'p_users.id',
-                    'perfil_id',
-                    'user_id',
-                    'p_users.id as p_users_id',
-                    'p_users.created_at',
-                    'p_users.updated_at',
-                    'p_perfils.id as p_perfils_id',
-                    'p_perfils.nome',
-                    'p_perfils.descricao',
-                )
-                ->leftJoin('p_users', 'p_users.user_id', '=', 'users.id')
-                ->leftJoin('p_perfils', 'p_perfils.id', '=', 'p_users.perfil_id')
-                ->where('users.deleted_at', '=', null)
-                ->where(function ($querySearch) use ($search) {
-                    if ($search <> null)
-                        $querySearch->where('users.name', 'LIKE', "%{$search}%")
-                            ->orWhere('users.email', 'LIKE', "%{$search}%");;
-                })
-                ->orderBy('p_perfils.nome', $orderByVal)
-                ->paginate($per_page);
-            foreach ($usuarios as $key => $value) {
-                $p_perfils = [
-                    'id' => $value->p_perfils_id,
-                    'nome' => $value->nome,
-                    'descricao' => $value->descricao
-                ];
-                $value->p_users = [
-                    'id' => $value->p_users_id,
-                    'user_id' => $value->user_id,
-                    'perfil_id' => $value->perfil_id,
-                    'p_perfils' => $p_perfils
-                ];
-                unset($value->p_perfils_id, $value->nome, $value->descricao, $value->p_users_id, $value->user_id, $value->perfil_id);
-            }
+
+            $users = $this->model->getDados->with('p_users')->orderBy('p_perfils.nome')->paginate();
+
         } else {
             $usuarios = $this->model->getDados($search)
                 ->with('p_users')

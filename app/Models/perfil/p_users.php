@@ -17,7 +17,7 @@ class p_users extends Model
     public function p_perfils()
     {
         return $this->hasOne(p_perfil::class, 'id', 'perfil_id');
-            //->leftJoin('p_perfils', 'p_perfils.id', '=', 'p_users.perfil_id');
+           
     }
 
 }

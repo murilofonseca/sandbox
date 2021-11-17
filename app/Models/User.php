@@ -103,7 +103,7 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->hasOne(p_users::class)
         ->with('p_perfils');
-            //->leftJoin('p_perfils', 'p_perfils.id', '=', 'p_users.perfil_id');
+           
     }
 
 
