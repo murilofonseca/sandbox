@@ -42,7 +42,10 @@ class UsersController extends Controller
         $orderByKey = $request->orderByKey == null ? 'id' : $request->orderByKey;
         $orderByVal = $request->orderByVal == null ? 'desc' : $request->orderByVal;
 
-        if (count(explode(".", $orderByKey)) > 1) {
+        $contOrderbyKey = explode(".", $orderByKey);
+        if (count($contOrderbyKey) > 1) {
+            $orderByKey = $contOrderbyKey[count($contOrderbyKey)-1];
+            dd($orderByKey);
             $usuarios = DB::table('users')
                 ->select(
                     'users.*',

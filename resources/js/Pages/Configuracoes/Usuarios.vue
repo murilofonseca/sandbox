@@ -13,7 +13,7 @@
           0: { titulo: 'ID', tipo: 'text', var: 'id' },
           1: { titulo: 'Nome', tipo: 'text', var: 'name' },
           2: { titulo: 'Email', tipo: 'text', var: 'email' },
-          3: { titulo: 'Perfil', tipo: 'text', var: 'p_users.p_perfils.nome' },
+          3: { titulo: 'Perfil', tipo: 'text', var: 'p_users.user_id' },
           4: {
             titulo: 'Data Criação Usuario',
             tipo: 'date',
